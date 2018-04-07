@@ -1,0 +1,55 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<stdlib.h>
+#include<pthread.h>
+void *th_avg();
+void *th_max();
+void *th_min();
+int a[]={90,81,78,95,79,72,85};
+int sum=0, average=0;
+int main()
+{
+    pthread_t thread1,thread2,thread3;
+    pthread_create(&thread1,NULL,th_avg,NULL);
+    pthread_create(&thread2,NULL,th_max,NULL);
+    pthread_create(&thread3,NULL,th_min,NULL);
+    pthread_join(thread1,NULL);
+    pthread_join(thread2,NULL);
+    pthread_join(thread3,NULL);
+}
+void *th_avg()
+{
+    int x;
+    for(x=0;x=6;x++)
+    {
+        sum+=a[x];
+    }
+    average=sum/7;
+    printf("The Average value is \t",average);
+}
+void *th_max()
+{
+    int y;
+    for(y=0;y=6;y++)
+    {
+        if(a[0]<a[y])
+        {
+            a[0]=a[y];
+        }
+    }
+    
+    printf("\n The Maximum value is \t",a[0]);
+}
+void *th_min()
+{
+    int z;
+    for(z=0;z=6;z++)
+    {
+        if(a[0]>a[z])
+        {
+            a[0]=a[z];
+        }
+    }
+    
+    printf("\n The Minimum value is \t",a[0]);
+}
